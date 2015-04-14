@@ -14,7 +14,7 @@ If you want to revert the original color after first step, select: `iOS Bar Colo
 
 ### Explanation:
 
-![group](https://cloud.githubusercontent.com/assets/1511689/7137393/ef47223a-e2c1-11e4-944f-0adf17751e62.png)
+![group](https://cloud.githubusercontent.com/assets/1511689/7137841/1a89d6f6-e2c5-11e4-8203-9aab7fd10179.png)
 
 ## Installation
 
