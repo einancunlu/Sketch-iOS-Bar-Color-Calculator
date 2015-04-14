@@ -1,0 +1,54 @@
+// Based on this post: http://b2cloud.com.au/how-to-guides/bar-color-calculator-for-ios7-and-ios8/
+
+@import "helpers.cocoascript"
+
+var designColorToBarColor = function (context) {
+	
+	changeColorOfSelections(context, false)
+}
+
+var barColorToDesignColor = function (context) {
+	
+	changeColorOfSelections(context, true)
+}
+
+var changeColorOfSelections = function (context, isReversion) {
+	
+	var app = [NSApplication sharedApplication]
+	var doc = context.document
+	var selection = context.selection
+	
+	var colorError = false
+    for (var i = 0; i < [selection count]; i++) {
+    	var layer = selection[i]
+      
+		if ([layer class] == MSShapeGroup) {
+			var style = [layer style]
+		    var fillCount = [[style fills] count]
+
+			if (fillCount != 0) {
+				var fillColor = style.fills().firstObject().color()
+				
+				if (!isReversion) {
+					var convertedColor = helpers.convertColor(fillColor)
+				
+					if (convertedColor != nil) {
+						[fillColor setRed:convertedColor.red()]
+						[fillColor setGreen:convertedColor.green()]
+						[fillColor setBlue:convertedColor.blue()]
+					} else {
+						colorError = true
+					}
+				} else {
+					var reversedColor = helpers.revertColor(fillColor)
+					[fillColor setRed:reversedColor.red()]
+					[fillColor setGreen:reversedColor.green()]
+					[fillColor setBlue:reversedColor.blue()]
+				}
+			}
+		} 
+    }
+	if (colorError) {
+		[app displayDialog:"One or more color change couldn't be calculated. Because all of the color components (R,G,B) should be equal to or higher than 40 (max 255). Detailed explanation: http://b2cloud.com.au/how-to-guides/bar-color-calculator-for-ios7-and-ios8/"]
+	} 
+}

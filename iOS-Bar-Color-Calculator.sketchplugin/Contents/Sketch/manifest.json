@@ -1,0 +1,30 @@
+{
+	"name": "iOS Bar Color Calculator",
+	"description": "Calculates and applies the correct color for you to get actual design color after applying it to a translucent UIToolbar or UINavigationBar.",
+    "author": "Emin Inanc Unlu",
+	"homepage": "https://github.com/einancunlu/Sketch-iOS-Bar-Color-Calculator",
+    "version": 1.0,
+	"compatibleVersion": 3.3,
+    "identifier": "com.einancunlu.ios-bar-color-calculator",
+    "commands": [
+        {
+            "handler": "designColorToBarColor",
+            "identifier": "design-color-to-bar-color",
+            "name": "Design Color to Bar Color",
+            "script": "scripts.cocoascript"
+        },
+        {
+            "handler": "barColorToDesignColor",
+            "identifier": "bar-color-to-design-color",
+            "name": "Bar Color to Design Color",
+            "script": "scripts.cocoascript"
+        }
+    ],
+    "menu": {
+		"title": "iOS Bar Color Calculator",
+        "items": [
+            "design-color-to-bar-color",
+			"bar-color-to-design-color"
+        ]
+    }
+}

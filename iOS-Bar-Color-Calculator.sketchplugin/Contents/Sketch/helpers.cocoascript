@@ -1,0 +1,46 @@
+// Based on this post: http://b2cloud.com.au/how-to-guides/bar-color-calculator-for-ios7-and-ios8/
+
+var helpers = {
+	
+	// Calculates the actual color for bar and returns.
+	"convertColor": function (color) {
+
+		var newRedValue = this.convertColorComponentValue(color.red())
+		var newGreenValue = this.convertColorComponentValue(color.green())
+		var newBlueValue = this.convertColorComponentValue(color.blue())
+		if (newRedValue == nil || newGreenValue == nil || newBlueValue == nil) {
+			return nil
+		}
+		var convertedColor = [MSColor colorWithRed:newRedValue green:newGreenValue blue:newBlueValue alpha:color.alpha()]
+		return convertedColor
+	},
+	
+	"convertColorComponentValue": function (value) {
+
+		var value255 = value * 255
+		if (value255 > 39.9 && value255 < 40) { value255 = 40 } // Weirdly, sometimes a color with a component valued 40 in Sketch, looks here 39.99... So I put this exception here to not giving weird error message.
+		var convertedValue = (value255 - 40) / (1 - 40 / 255)
+		if(convertedValue >= 0) {
+			return convertedValue / 255.0
+		} else {
+			return nil
+		}
+	},
+	
+	// Calculates the original color back and returns.
+	"revertColor": function (color) {
+		
+		var newRedValue = this.revertColorComponentValue(color.red())
+		var newGreenValue = this.revertColorComponentValue(color.green())
+		var newBlueValue = this.revertColorComponentValue(color.blue())
+		var convertedColor = [MSColor colorWithRed:newRedValue green:newGreenValue blue:newBlueValue alpha:color.alpha()]
+		return convertedColor
+	},
+	
+	"revertColorComponentValue": function (value) {
+		
+		var value255 = value * 255
+		var revertedColor = (1 - 40 / 255) * value255 + 40
+		return revertedColor / 255.0
+	}
+}
